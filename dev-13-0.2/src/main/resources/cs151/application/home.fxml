@@ -42,6 +42,18 @@
         <Button fx:id="manageLanguagesBtn" text="Define Programming Languages" 
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onManageLanguagesClick"/>
+
+        <Button fx:id="defineStudentProfilesBtn" text="Define Student Profiles (coming soon)" 
+                prefWidth="250.0" prefHeight="40.0"
+                onAction="#onDefineStudentProfilesClick"/>
+
+        <Button fx:id="manageStudentBtn" text="Search and Manage Students (coming soon)" 
+                prefWidth="250.0" prefHeight="40.0"
+                onAction="#onManageStudentClick"/>
+
+        <Button fx:id="generateReportsBtn" text="Generate Student Reports (coming soon)" 
+                prefWidth="250.0" prefHeight="40.0"
+                onAction="#onGenerateReportsClick"/>
         
         <Button fx:id="exitBtn" text="Exit Application" 
                 prefWidth="200.0" prefHeight="35.0"

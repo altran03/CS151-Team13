@@ -17,12 +17,36 @@ public class MainController {
     
     @FXML
     private Button manageLanguagesBtn;
+
+    @FXML
+    private Button defineStudentProfilesBtn;
+
+    @FXML
+    private Button manageStudentBtn;
+
+    @FXML
+    private Button generateReportsBtn;
     
     @FXML
     private Button exitBtn;
 
     @FXML
     protected void onManageLanguagesClick() {
+        // Button does nothing for now
+    }
+
+    @FXML
+    protected void onDefineStudentProfilesClick() {
+        // Button does nothing for now
+    }
+
+    @FXML
+    protected void onManageStudentClick() {
+        // Button does nothing for now
+    }
+
+    @FXML
+    protected void onGenerateReportsClick() {
         // Button does nothing for now
     }
     
