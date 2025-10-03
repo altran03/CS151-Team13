@@ -2,10 +2,10 @@
 # Version: 0.2
 
 # who did what:
-1. 
+1. Alvin Tran (CS) - Home Page, Repo
 2. 
 3. 
-3. 
+4. 
 
 
 # Any other instruction that users need to know:
