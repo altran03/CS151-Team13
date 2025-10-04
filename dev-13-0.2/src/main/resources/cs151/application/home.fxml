@@ -47,7 +47,7 @@
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onDefineStudentProfilesClick"/>
 
-        <Button fx:id="manageStudentBtn" text="Search and Manage Students (coming soon)" 
+        <Button fx:id="manageStudentBtn" text="Search &amp; Manage Students (coming soon)"
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onManageStudentClick"/>
 
