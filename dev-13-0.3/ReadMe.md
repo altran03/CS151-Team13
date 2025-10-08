@@ -2,7 +2,7 @@
 # Version: 0.3
 
 # who did what:
-1. Alvin Tran (CS) - 
+1. Alvin Tran (CS) - csv permanent storage
 2. Xueyan Xian (CS) - 
 3. Moke Wu(SE) - 
 4. Travis Bui(DS) - 
