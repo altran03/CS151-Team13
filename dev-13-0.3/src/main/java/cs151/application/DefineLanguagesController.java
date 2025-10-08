@@ -67,7 +67,7 @@ public class DefineLanguagesController {
             
         } catch (IOException e) {
             System.err.println("Error saving languages to CSV: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public class DefineLanguagesController {
             
         } catch (IOException e) {
             System.err.println("Error loading languages from CSV: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -167,7 +167,7 @@ public class DefineLanguagesController {
             currentStage.setTitle("Student Knowledgebase - Faculty Management System");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             statusMessage.setText("Error: Cannot navigate back to home page");
         }
     }
