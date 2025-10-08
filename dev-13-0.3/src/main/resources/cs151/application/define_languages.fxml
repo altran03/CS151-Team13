@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="cs151.application.DefineLanguagesController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <!-- Header -->
+    <Label text="Define Programming Languages"
+           textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="System Bold" size="24.0"/>
+        </font>
+    </Label>
+
+    <!-- Instruction -->
+    <Label text="Add programming languages that can be assigned to student profiles"
+           textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="System" size="14.0"/>
+        </font>
+    </Label>
+
+    <!-- Input Section -->
+    <VBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 20;">
+        <Label text="Language Name"
+               style="-fx-font-weight: bold;">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <TextField fx:id="languageField"
+                   promptText="e.g., Java, Python, JavaScript..."
+                   prefWidth="300.0" prefHeight="35.0"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Button fx:id="saveButton" text="Save Language"
+                    onAction="#onSaveLanguageClick"
+                    prefWidth="120.0" prefHeight="35.0"/>
+
+            <Button fx:id="backButton" text="Back to Home"
+                    onAction="#onBackToHomeClick"
+                    prefWidth="120.0" prefHeight="35.0"/>
+        </HBox>
+
+        <!-- Status Message Box -->
+        <Label fx:id="statusMessage"
+               style="-fx-text-fill: white; -fx-background-color: #3498db; -fx-padding: 10px; -fx-background-radius: 5px; -fx-alignment: center; -fx-font-weight: bold;"
+               maxWidth="300"
+               visible="false">
+            <font>
+                <Font size="12.0"/>
+            </font>
+        </Label>
+    </VBox>
+
+    <!-- Existing Languages Section -->
+    <VBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 20;">
+        <Label text="Existing Languages"
+               style="-fx-font-weight: bold;">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+
+        <ListView fx:id="languagesListView"
+                  prefHeight="150.0" prefWidth="300.0"/>
+    </VBox>
+</VBox>
