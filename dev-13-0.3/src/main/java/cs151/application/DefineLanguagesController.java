@@ -5,7 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +29,9 @@ public class DefineLanguagesController {
     @FXML
     private ListView<String> languagesListView;
 
-    // Temporary storage for languages (will be replaced with file persistence later (only allowed flat files or SQLite database))
+    // Storage for languages with CSV file persistence
     private List<String> programmingLanguages = new ArrayList<>();
+    private static final String CSV_FILE_PATH = "programming_languages.csv";
 
     private void showStatus(String message, String color) {
         statusMessage.setText(message);
@@ -39,18 +43,83 @@ public class DefineLanguagesController {
         statusMessage.setVisible(false);
     }
 
+    //Saves the programming languages list to a CSV file
+    private void saveLanguagesToCSV() {
+        try {
+            Path filePath = Paths.get(CSV_FILE_PATH);
+            
+            // Create the file if it doesn't exist
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+            
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filePath.toFile()))) {
+                // Write header
+                writer.println("Programming Language");
+                
+                // Write each language
+                for (String language : programmingLanguages) {
+                    writer.println(language);
+                }
+            }
+            
+            System.out.println("Languages saved to CSV file: " + CSV_FILE_PATH);
+            
+        } catch (IOException e) {
+            System.err.println("Error saving languages to CSV: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+   //Loads programming languages from a CSV file
+    private void loadLanguagesFromCSV() {
+        try {
+            Path filePath = Paths.get(CSV_FILE_PATH);
+            
+            if (!Files.exists(filePath)) {
+                System.out.println("CSV file does not exist yet. Starting with empty list.");
+                return;
+            }
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
+                String line;
+                boolean isFirstLine = true;
+                
+                while ((line = reader.readLine()) != null) {
+                    // Skip header line
+                    if (isFirstLine) {
+                        isFirstLine = false;
+                        continue;
+                    }
+                    
+                    String language = line.trim();
+                    if (!language.isEmpty() && !programmingLanguages.contains(language)) {
+                        programmingLanguages.add(language);
+                    }
+                }
+            }
+            
+            System.out.println("Languages loaded from CSV file: " + CSV_FILE_PATH);
+            System.out.println("Loaded languages: " + programmingLanguages);
+            
+        } catch (IOException e) {
+            System.err.println("Error loading languages from CSV: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
 
     @FXML
     public void initialize() {
+        // Load existing languages from CSV file
+        loadLanguagesFromCSV();
+        
         // Initialize the list view
         updateLanguagesList();
 
         // Hide status message on startup
         hideStatus();
-
-        // Update the languages shown on screen
-        updateLanguagesList();
     }
 
     @FXML
@@ -72,11 +141,13 @@ public class DefineLanguagesController {
         programmingLanguages.add(languageName);
         updateLanguagesList();
 
+        // Save to CSV file for permanent storage
+        saveLanguagesToCSV();
+
         // Clear text field and show success message
         languageField.clear();
-        showStatus("Success: '" + languageName + "' has been added!", "#2ecc71"); // Success in green
+        showStatus("Success: '" + languageName + "' has been added and saved!", "#2ecc71"); // Success in green
 
-        // For now, just print to console (will be replaced with file saving for later use)
         System.out.println("Saved language: " + languageName);
         System.out.println("All languages: " + programmingLanguages);
     }

@@ -2,3 +2,5 @@
 /.vscode
 /.mvn
 /*.sh
+/*.csv
+/*.idea
