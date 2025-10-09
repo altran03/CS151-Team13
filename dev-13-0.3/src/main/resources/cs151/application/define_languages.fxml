@@ -72,5 +72,9 @@
 
         <ListView fx:id="languagesListView"
                   prefHeight="150.0" prefWidth="300.0"/>
+
+        <Button fx:id="deleteButton" text="Delete Selected Language"
+                onAction="#onDeleteLanguageClick"
+                prefWidth="200.0" prefHeight="35.0"/>
     </VBox>
 </VBox>

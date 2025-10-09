@@ -29,6 +29,9 @@ public class DefineLanguagesController {
     @FXML
     private ListView<String> languagesListView;
 
+    @FXML
+    private Button deleteButton;
+
     // Storage for languages with CSV file persistence
     private List<String> programmingLanguages = new ArrayList<>();
     private static final String CSV_FILE_PATH = "programming_languages.csv";
@@ -149,6 +152,30 @@ public class DefineLanguagesController {
         showStatus("Success: '" + languageName + "' has been added and saved!", "#2ecc71"); // Success in green
 
         System.out.println("Saved language: " + languageName);
+        System.out.println("All languages: " + programmingLanguages);
+    }
+
+    @FXML
+    protected void onDeleteLanguageClick() {
+        String selectedLanguage = languagesListView.getSelectionModel().getSelectedItem();
+
+        // Validation
+        if (selectedLanguage == null) {
+            showStatus("Error: Please select a language to delete", "#e74c3c"); // Errors in red
+            return;
+        }
+
+        // Remove the language
+        programmingLanguages.remove(selectedLanguage);
+        updateLanguagesList();
+
+        // Save to CSV file to persist changes
+        saveLanguagesToCSV();
+
+        // Show success message
+        showStatus("Success: '" + selectedLanguage + "' has been deleted!", "#2ecc71"); // Success in green
+
+        System.out.println("Deleted language: " + selectedLanguage);
         System.out.println("All languages: " + programmingLanguages);
     }
 
