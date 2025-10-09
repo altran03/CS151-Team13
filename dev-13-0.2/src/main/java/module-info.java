@@ -4,6 +4,7 @@ module cs151.application {
     requires transitive javafx.graphics;
 
     requires com.dlsc.formsfx;
+    requires java.sql;
 
     opens cs151.application to javafx.fxml;
     exports cs151.application;
