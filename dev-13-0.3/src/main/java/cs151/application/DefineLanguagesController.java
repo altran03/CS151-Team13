@@ -110,8 +110,8 @@ public class DefineLanguagesController {
                 }
             }
 
-            // Sort the loaded languages alphabetically
-            Collections.sort(loadedLanguages);
+            // Sort the loaded languages alphabetically (case-insensitive)
+            Collections.sort(loadedLanguages, String.CASE_INSENSITIVE_ORDER);
 
             // Add the sorted languages to observable list
             programmingLanguages.setAll(loadedLanguages);
@@ -130,6 +130,11 @@ public class DefineLanguagesController {
         // Set TableView
         languagesColumn.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleStringProperty(cellData.getValue()));
+
+        // Set case-insensitive comparator for sorting
+        languagesColumn.setComparator((String s1, String s2) -> {
+            return s1.compareToIgnoreCase(s2);
+        });
 
         // Load existing languages from CSV file
         loadLanguagesFromCSV();
@@ -163,8 +168,8 @@ public class DefineLanguagesController {
         // Save the language
         programmingLanguages.add(languageName);
 
-        // Sort in alphabetical order
-        FXCollections.sort(programmingLanguages);
+        // Sort in alphabetical order (case-insensitive)
+        FXCollections.sort(programmingLanguages, String.CASE_INSENSITIVE_ORDER);
 
         // Save to CSV file for permanent storage
         saveLanguagesToCSV();
