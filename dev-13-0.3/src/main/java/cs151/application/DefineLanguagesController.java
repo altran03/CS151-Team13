@@ -5,12 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class DefineLanguagesController {
 
@@ -27,13 +30,16 @@ public class DefineLanguagesController {
     private Label statusMessage;
 
     @FXML
-    private ListView<String> languagesListView;
-
-    @FXML
     private Button deleteButton;
 
+    @FXML
+    private TableView<String> languagesTableView;
+
+    @FXML
+    private TableColumn<String, String> languagesColumn;
+
     // Storage for languages with CSV file persistence
-    private List<String> programmingLanguages = new ArrayList<>();
+    private ObservableList<String> programmingLanguages = FXCollections.observableArrayList();
     private static final String CSV_FILE_PATH = "programming_languages.csv";
 
     private void showStatus(String message, String color) {
@@ -70,7 +76,6 @@ public class DefineLanguagesController {
             
         } catch (IOException e) {
             System.err.println("Error saving languages to CSV: " + e.getMessage());
-            System.out.println(e.getMessage());
         }
     }
 
@@ -83,7 +88,10 @@ public class DefineLanguagesController {
                 System.out.println("CSV file does not exist yet. Starting with empty list.");
                 return;
             }
-            
+
+            // Use intermediate list to sort added languages all at once
+            List<String> loadedLanguages = new ArrayList<>();
+
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
                 String line;
                 boolean isFirstLine = true;
@@ -96,30 +104,42 @@ public class DefineLanguagesController {
                     }
                     
                     String language = line.trim();
-                    if (!language.isEmpty() && !programmingLanguages.contains(language)) {
-                        programmingLanguages.add(language);
+                    if (!language.isEmpty() && !loadedLanguages.contains(language)) {
+                        loadedLanguages.add(language);
                     }
                 }
             }
+
+            // Sort the loaded languages alphabetically
+            Collections.sort(loadedLanguages);
+
+            // Add the sorted languages to observable list
+            programmingLanguages.setAll(loadedLanguages);
             
             System.out.println("Languages loaded from CSV file: " + CSV_FILE_PATH);
             System.out.println("Loaded languages: " + programmingLanguages);
             
         } catch (IOException e) {
             System.err.println("Error loading languages from CSV: " + e.getMessage());
-            System.out.println(e.getMessage());
         }
     }
 
 
-
     @FXML
     public void initialize() {
+        // Set TableView
+        languagesColumn.setCellValueFactory(cellData ->
+                new javafx.beans.property.SimpleStringProperty(cellData.getValue()));
+
         // Load existing languages from CSV file
         loadLanguagesFromCSV();
-        
-        // Initialize the list view
-        updateLanguagesList();
+
+        // Set sorted data to TableView
+        languagesTableView.setItems(programmingLanguages);
+
+        // Sort the TableView
+        languagesTableView.getSortOrder().add(languagesColumn);
+        languagesColumn.setSortable(true);
 
         // Hide status message on startup
         hideStatus();
@@ -142,7 +162,9 @@ public class DefineLanguagesController {
 
         // Save the language
         programmingLanguages.add(languageName);
-        updateLanguagesList();
+
+        // Sort in alphabetical order
+        FXCollections.sort(programmingLanguages);
 
         // Save to CSV file for permanent storage
         saveLanguagesToCSV();
@@ -157,7 +179,7 @@ public class DefineLanguagesController {
 
     @FXML
     protected void onDeleteLanguageClick() {
-        String selectedLanguage = languagesListView.getSelectionModel().getSelectedItem();
+        String selectedLanguage = languagesTableView.getSelectionModel().getSelectedItem();
 
         // Validation
         if (selectedLanguage == null) {
@@ -167,7 +189,7 @@ public class DefineLanguagesController {
 
         // Remove the language
         programmingLanguages.remove(selectedLanguage);
-        updateLanguagesList();
+        //updateLanguagesList();
 
         // Save to CSV file to persist changes
         saveLanguagesToCSV();
@@ -194,13 +216,8 @@ public class DefineLanguagesController {
             currentStage.setTitle("Student Knowledgebase - Faculty Management System");
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             statusMessage.setText("Error: Cannot navigate back to home page");
         }
-    }
-
-    private void updateLanguagesList() {
-        languagesListView.getItems().clear();
-        languagesListView.getItems().addAll(programmingLanguages);
     }
 }
