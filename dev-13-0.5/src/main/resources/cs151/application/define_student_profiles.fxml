@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml" fx:controller="cs151.application.DefineStudentProfilesController">
+    <content>
+        <VBox spacing="20.0" style="-fx-background-color: #f5f5f5;">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="10.0">
+                <Label text="Define Student Profile" 
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;">
+                </Label>
+                <Label text="Enter student information and faculty evaluation" 
+                       style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;">
+                </Label>
+            </VBox>
+
+            <!-- Main Form -->
+            <GridPane hgap="10.0" vgap="15.0" style="-fx-background-color: white; -fx-background-radius: 8;">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
+
+                <!-- Basic Information Section -->
+                <Label text="Basic Information" 
+                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 0 0 10 0;">
+                </Label>
+
+                <!-- Full Name -->
+                <Label text="Full Name *:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="fullNameField" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <!-- Academic Status -->
+                <Label text="Academic Status *:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <ComboBox fx:id="academicStatusCombo" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <!-- Current Job Status -->
+                <Label text="Current Job Status:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <HBox spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <RadioButton fx:id="employedRadio" text="Employed" toggleGroup="$jobStatusGroup"/>
+                    <RadioButton fx:id="notEmployedRadio" text="Not Employed" toggleGroup="$jobStatusGroup" selected="true"/>
+                </HBox>
+
+                <!-- Job Details -->
+                <Label text="Job Details:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+                <TextField fx:id="jobDetailsField" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4" disable="true"/>
+
+                <!-- Skills and Interests Section -->
+                <Label text="Skills and Interests" 
+                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="5"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 20 0 10 0;">
+                </Label>
+
+                <!-- Programming Languages -->
+                <Label text="Programming Languages *:" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+                <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <ScrollPane prefHeight="100.0" prefWidth="300.0">
+                        <content>
+                            <VBox fx:id="programmingLanguagesContainer" spacing="2.0">
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                </padding>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </VBox>
+
+                <!-- Databases Known -->
+                <Label text="Databases Known *:" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+                <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <ScrollPane prefHeight="80.0" prefWidth="300.0">
+                        <content>
+                            <VBox fx:id="databasesContainer" spacing="2.0">
+                                <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                </padding>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </VBox>
+
+                <!-- Preferred Professional Role -->
+                <Label text="Preferred Professional Role *:" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+                <ComboBox fx:id="professionalRoleCombo" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+                <!-- Faculty Evaluation Section -->
+                <Label text="Faculty Evaluation" 
+                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="9"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-padding: 20 0 10 0;">
+                </Label>
+
+                <!-- Comments/Journal Entries -->
+                <Label text="Comments/Journal Entries:" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+                <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                    <TextArea fx:id="commentsField" prefHeight="100.0" prefWidth="300.0" wrapText="true"/>
+                    <Label text="Add comments and journal entries about the student" 
+                           style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+                </VBox>
+
+                <!-- Action Buttons -->
+                <HBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="11">
+                    <Button fx:id="saveProfileBtn" text="Save Student Profile" 
+                            prefWidth="150.0" prefHeight="35.0"
+                            onAction="#onSaveProfileClick"
+                            style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5;">
+                    </Button>
+                    <Button fx:id="backToHomeBtn" text="Back to Home" 
+                            prefWidth="120.0" prefHeight="35.0"
+                            onAction="#onBackToHomeClick"
+                            style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;">
+                    </Button>
+                </HBox>
+
+                <!-- Status Label -->
+                <Label fx:id="statusLabel" text="" 
+                       GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="12"
+                       style="-fx-text-alignment: center; -fx-padding: 10 0 0 0; -fx-alignment: center;">
+                </Label>
+
+            </GridPane>
+        </VBox>
+    </content>
+</ScrollPane>

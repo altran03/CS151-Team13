@@ -43,7 +43,7 @@
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onManageLanguagesClick"/>
 
-        <Button fx:id="defineStudentProfilesBtn" text="Define Student Profiles (coming soon)" 
+        <Button fx:id="defineStudentProfilesBtn" text="Define Student Profiles" 
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onDefineStudentProfilesClick"/>
 

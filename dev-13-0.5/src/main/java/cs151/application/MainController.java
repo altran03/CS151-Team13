@@ -49,14 +49,27 @@ public class MainController {
             currentStage.setTitle("Student Tracker - Define Programming Languages");
 
         } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Error loading Define Programming Languages page: " + e.getMessage());
+            System.out.println("Error loading Define Programming Languages page");
         }
     }
 
     @FXML
     protected void onDefineStudentProfilesClick() {
-        // Button does nothing for now
+        try {
+            // Load the Define Student Profiles page
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("define_student_profiles.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 700, 800);
+
+            // Get the current stage
+            Stage currentStage = (Stage) defineStudentProfilesBtn.getScene().getWindow();
+
+            // Set the new scene
+            currentStage.setScene(scene);
+            currentStage.setTitle("Student Tracker - Define Student Profiles");
+
+        } catch (IOException e) {
+            System.out.println("Error loading Define Student Profiles page");
+        }
     }
 
     @FXML
