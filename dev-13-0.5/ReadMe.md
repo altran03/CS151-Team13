@@ -1,5 +1,5 @@
 # Name of application: 
-# Version: 0.3
+# Version: 0.5
 
 # who did what:
 1. Alvin Tran (CS) - 
