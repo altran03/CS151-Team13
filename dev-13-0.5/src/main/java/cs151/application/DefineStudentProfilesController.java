@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DefineStudentProfilesController {
+public class  DefineStudentProfilesController {
     
     @FXML
     private TextField fullNameField;
@@ -71,21 +71,26 @@ public class DefineStudentProfilesController {
         setupDatabasesList();
         setupValidation();
     }
-    
+
+    // Initialize academic status combo box
     private void setupAcademicStatusCombo() {
         ArrayList<String> academicStatuses = new ArrayList<>(Arrays.asList(
             "Freshman", "Sophomore", "Junior", "Senior", "Graduate"
         ));
         academicStatusCombo.setItems(FXCollections.observableArrayList(academicStatuses));
     }
-    
+
+    // Initialize professional role combo box
     private void setupProfessionalRoleCombo() {
         ArrayList<String> roles = new ArrayList<>(Arrays.asList(
             "Front-End", "Back-End", "Full-Stack", "Data", "Other"
         ));
         professionalRoleCombo.setItems(FXCollections.observableArrayList(roles));
     }
-    
+
+    /*
+     Instantiate new toggle group and initialize job status radio buttons
+     */
     private void setupJobStatusToggleGroup() {
         jobStatusGroup = new ToggleGroup();
         employedRadio.setToggleGroup(jobStatusGroup);
@@ -100,7 +105,8 @@ public class DefineStudentProfilesController {
             }
         });
     }
-    
+
+    // Loads programming languages from a CSV file
     private void loadProgrammingLanguages() {
         try {
             File file = new File(PROGRAMMING_LANGUAGES_CSV);
@@ -156,7 +162,8 @@ public class DefineStudentProfilesController {
     private void setupValidation() {
         // Real-time validation could be added here if needed
     }
-    
+
+    // Read validated form, save, and clear
     @FXML
     protected void onSaveProfileClick() {
         if (!validateForm()) {
@@ -173,7 +180,12 @@ public class DefineStudentProfilesController {
             statusLabel.setTextFill(Color.RED);
         }
     }
-    
+
+    /**
+        Check if full name, academic status, employment status,
+        language, database, and professional role status is valid
+        @return {@code false} if errors > 0, {@code true} if required fields is valid
+     */
     private boolean validateForm() {
         StringBuilder errors = new StringBuilder();
         
@@ -247,7 +259,8 @@ public class DefineStudentProfilesController {
                   .append(comments).append("\n");
         }
     }
-    
+
+    // Set all fields to default values
     private void clearForm() {
         fullNameField.clear();
         academicStatusCombo.setValue(null);
@@ -278,7 +291,11 @@ public class DefineStudentProfilesController {
             statusLabel.setTextFill(Color.RED);
         }
     }
-    
+
+    /**
+     * Add selected languages in selected list
+     * @return list of selected language(s)
+     */
     private ArrayList<String> getSelectedProgrammingLanguages() {
         ArrayList<String> selected = new ArrayList<>();
         for (var node : programmingLanguagesContainer.getChildren()) {
@@ -291,7 +308,11 @@ public class DefineStudentProfilesController {
         }
         return selected;
     }
-    
+
+    /**
+     * Add selected database in selected list
+     * @return list of selected database(s)
+     */
     private ArrayList<String> getSelectedDatabases() {
         ArrayList<String> selected = new ArrayList<>();
         for (var node : databasesContainer.getChildren()) {
@@ -304,7 +325,8 @@ public class DefineStudentProfilesController {
         }
         return selected;
     }
-    
+
+    // set programming language(s) to default values
     private void clearProgrammingLanguagesSelection() {
         for (var node : programmingLanguagesContainer.getChildren()) {
             if (node instanceof CheckBox) {
@@ -312,7 +334,8 @@ public class DefineStudentProfilesController {
             }
         }
     }
-    
+
+    // set database(s) to default values
     private void clearDatabasesSelection() {
         for (var node : databasesContainer.getChildren()) {
             if (node instanceof CheckBox) {
