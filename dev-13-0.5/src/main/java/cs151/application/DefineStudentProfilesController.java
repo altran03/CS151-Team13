@@ -144,7 +144,7 @@ public class  DefineStudentProfilesController {
             statusLabel.setTextFill(Color.RED);
         }
     }
-    
+    // Initialize list of databases (hard coded) and adds checkbox for database(s)
     private void setupDatabasesList() {
         // Create checkboxes for each database
         databasesContainer.getChildren().clear();
