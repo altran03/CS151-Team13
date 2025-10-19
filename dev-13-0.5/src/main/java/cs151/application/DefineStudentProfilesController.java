@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class  DefineStudentProfilesController {
+public class DefineStudentProfilesController {
     
     @FXML
     private TextField fullNameField;
@@ -58,7 +58,11 @@ public class  DefineStudentProfilesController {
     
     @FXML
     private Label statusLabel;
-    
+
+    @FXML
+    private Button viewAllBtn;
+
+
     private static final String STUDENT_PROFILES_CSV = "student_profiles.csv";
     private static final String PROGRAMMING_LANGUAGES_CSV = "programming_languages.csv";
     
@@ -71,26 +75,43 @@ public class  DefineStudentProfilesController {
         setupDatabasesList();
         setupValidation();
     }
+    @FXML
+    protected void onViewAllClick() {
+        try {
+            var url = Main.class.getResource("view_all_students.fxml"); // 相对路径，和 home.fxml 一样
+            System.out.println("view_all_students.fxml URL = " + url);   // 应该不是 null
+            if (url == null) {
+                statusLabel.setText("找不到 view_all_students.fxml（放到 src/main/resources/cs151.application/）");
+                statusLabel.setTextFill(Color.RED);
+                return;
+            }
 
-    // Initialize academic status combo box
+            FXMLLoader loader = new FXMLLoader(url);
+            Scene scene = new Scene(loader.load(), 900, 600);
+            Stage stage = (Stage) backToHomeBtn.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("All Student Profiles");
+        } catch (Exception e) {
+            e.printStackTrace(); // 在 IDEA 控制台看真实原因
+            statusLabel.setText("加载失败: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+            statusLabel.setTextFill(Color.RED);
+        }
+    }
+
     private void setupAcademicStatusCombo() {
         ArrayList<String> academicStatuses = new ArrayList<>(Arrays.asList(
             "Freshman", "Sophomore", "Junior", "Senior", "Graduate"
         ));
         academicStatusCombo.setItems(FXCollections.observableArrayList(academicStatuses));
     }
-
-    // Initialize professional role combo box
+    
     private void setupProfessionalRoleCombo() {
         ArrayList<String> roles = new ArrayList<>(Arrays.asList(
             "Front-End", "Back-End", "Full-Stack", "Data", "Other"
         ));
         professionalRoleCombo.setItems(FXCollections.observableArrayList(roles));
     }
-
-    /*
-     Instantiate new toggle group and initialize job status radio buttons
-     */
+    
     private void setupJobStatusToggleGroup() {
         jobStatusGroup = new ToggleGroup();
         employedRadio.setToggleGroup(jobStatusGroup);
@@ -105,8 +126,7 @@ public class  DefineStudentProfilesController {
             }
         });
     }
-
-    // Loads programming languages from a CSV file
+    
     private void loadProgrammingLanguages() {
         try {
             File file = new File(PROGRAMMING_LANGUAGES_CSV);
@@ -144,7 +164,7 @@ public class  DefineStudentProfilesController {
             statusLabel.setTextFill(Color.RED);
         }
     }
-    // Initialize list of databases (hard coded) and adds checkbox for database(s)
+    
     private void setupDatabasesList() {
         // Create checkboxes for each database
         databasesContainer.getChildren().clear();
@@ -162,8 +182,7 @@ public class  DefineStudentProfilesController {
     private void setupValidation() {
         // Real-time validation could be added here if needed
     }
-
-    // Read validated form, save, and clear
+    
     @FXML
     protected void onSaveProfileClick() {
         if (!validateForm()) {
@@ -180,12 +199,7 @@ public class  DefineStudentProfilesController {
             statusLabel.setTextFill(Color.RED);
         }
     }
-
-    /**
-        Check if full name, academic status, employment status,
-        language, database, and professional role status is valid
-        @return {@code false} if errors > 0, {@code true} if required fields is valid
-     */
+    
     private boolean validateForm() {
         StringBuilder errors = new StringBuilder();
         
@@ -259,8 +273,7 @@ public class  DefineStudentProfilesController {
                   .append(comments).append("\n");
         }
     }
-
-    // Set all fields to default values
+    
     private void clearForm() {
         fullNameField.clear();
         academicStatusCombo.setValue(null);
@@ -291,11 +304,7 @@ public class  DefineStudentProfilesController {
             statusLabel.setTextFill(Color.RED);
         }
     }
-
-    /**
-     * Add selected languages in selected list
-     * @return list of selected language(s)
-     */
+    
     private ArrayList<String> getSelectedProgrammingLanguages() {
         ArrayList<String> selected = new ArrayList<>();
         for (var node : programmingLanguagesContainer.getChildren()) {
@@ -308,11 +317,7 @@ public class  DefineStudentProfilesController {
         }
         return selected;
     }
-
-    /**
-     * Add selected database in selected list
-     * @return list of selected database(s)
-     */
+    
     private ArrayList<String> getSelectedDatabases() {
         ArrayList<String> selected = new ArrayList<>();
         for (var node : databasesContainer.getChildren()) {
@@ -325,8 +330,7 @@ public class  DefineStudentProfilesController {
         }
         return selected;
     }
-
-    // set programming language(s) to default values
+    
     private void clearProgrammingLanguagesSelection() {
         for (var node : programmingLanguagesContainer.getChildren()) {
             if (node instanceof CheckBox) {
@@ -334,8 +338,7 @@ public class  DefineStudentProfilesController {
             }
         }
     }
-
-    // set database(s) to default values
+    
     private void clearDatabasesSelection() {
         for (var node : databasesContainer.getChildren()) {
             if (node instanceof CheckBox) {
@@ -344,3 +347,4 @@ public class  DefineStudentProfilesController {
         }
     }
 }
+
