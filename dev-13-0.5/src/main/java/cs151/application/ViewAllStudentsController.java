@@ -66,7 +66,6 @@ public class ViewAllStudentsController {
                     map.put(headers[i].trim(), parts[i].trim());
                 }
 
-                // ✅ 无条件添加描述（description）
                 String jobStatus = map.getOrDefault("Job Status", "").trim();
                 String jobDetails = map.getOrDefault("Job Details", "").trim();
                 if (!jobDetails.isEmpty()) {
