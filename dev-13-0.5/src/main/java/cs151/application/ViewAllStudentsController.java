@@ -29,7 +29,6 @@ public class ViewAllStudentsController {
 
     @FXML
     public void initialize() {
-        // 绑定列
         colFullName.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
                 d.getValue().getOrDefault("Full Name", "")));
         colAcademic.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
@@ -75,7 +74,6 @@ public class ViewAllStudentsController {
                 rows.add(map);
             }
 
-            // 排序
             rows.sort(Comparator.comparing(
                     r -> r.getOrDefault("Full Name", ""),
                     String.CASE_INSENSITIVE_ORDER
