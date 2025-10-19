@@ -78,10 +78,9 @@ public class DefineStudentProfilesController {
     @FXML
     protected void onViewAllClick() {
         try {
-            var url = Main.class.getResource("view_all_students.fxml"); // 相对路径，和 home.fxml 一样
-            System.out.println("view_all_students.fxml URL = " + url);   // 应该不是 null
+            var url = Main.class.getResource("view_all_students.fxml");
+            System.out.println("view_all_students.fxml URL = " + url);
             if (url == null) {
-                statusLabel.setText("找不到 view_all_students.fxml（放到 src/main/resources/cs151.application/）");
                 statusLabel.setTextFill(Color.RED);
                 return;
             }
@@ -92,8 +91,8 @@ public class DefineStudentProfilesController {
             stage.setScene(scene);
             stage.setTitle("All Student Profiles");
         } catch (Exception e) {
-            e.printStackTrace(); // 在 IDEA 控制台看真实原因
-            statusLabel.setText("加载失败: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+            e.printStackTrace();
+            statusLabel.setText(e.getClass().getSimpleName() + " - " + e.getMessage());
             statusLabel.setTextFill(Color.RED);
         }
     }
