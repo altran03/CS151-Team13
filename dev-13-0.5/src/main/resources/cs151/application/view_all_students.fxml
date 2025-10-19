@@ -22,13 +22,13 @@
     <center>
         <TableView fx:id="table">
             <columns>
-                <TableColumn fx:id="colFullName"  text="Full Name"                prefWidth="160"/>
-                <TableColumn fx:id="colAcademic"  text="Academic Status"          prefWidth="130"/>
-                <TableColumn fx:id="colJob"       text="Job Status"               prefWidth="110"/>
-                <TableColumn fx:id="colLangs"     text="Languages"                prefWidth="200"/>
-                <TableColumn fx:id="colDBs"       text="Databases"                prefWidth="140"/>
-                <TableColumn fx:id="colRole"      text="Role"                     prefWidth="120"/>
-                <TableColumn fx:id="colComments"  text="Comments"                 prefWidth="240"/>
+                <TableColumn fx:id="colFullName"  text="Full Name"                prefWidth="120"/>
+                <TableColumn fx:id="colAcademic"  text="Academic Status"          prefWidth="80"/>
+                <TableColumn fx:id="colJob"       text="Job Status"               prefWidth="200"/>
+                <TableColumn fx:id="colLangs"     text="Languages"                prefWidth="140"/>
+                <TableColumn fx:id="colDBs"       text="Databases"                prefWidth="120"/>
+                <TableColumn fx:id="colRole"      text="Role"                     prefWidth="100"/>
+                <TableColumn fx:id="colComments"  text="Comments"                 prefWidth="320"/>
             </columns>
         </TableView>
     </center>
