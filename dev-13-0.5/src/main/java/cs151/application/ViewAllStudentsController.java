@@ -27,6 +27,7 @@ public class ViewAllStudentsController {
 
     private static final String FILE = "student_profiles.csv";
 
+     // Initialize values or set default for table view and loads CSV for Table view
     @FXML
     public void initialize() {
         colFullName.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
@@ -47,6 +48,7 @@ public class ViewAllStudentsController {
         loadCsv();
     }
 
+    // Load CSV file into table and initialize values
     private void loadCsv() {
         List<Map<String, String>> rows = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(FILE))) {
@@ -86,6 +88,7 @@ public class ViewAllStudentsController {
     }
 
 
+    // Loads home scene
     @FXML
     protected void onBackClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("home.fxml"));
