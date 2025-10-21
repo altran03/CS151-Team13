@@ -22,6 +22,8 @@ public class ViewAllStudentsController {
     @FXML private TableColumn<Map<String, String>, String> colDBs;
     @FXML private TableColumn<Map<String, String>, String> colRole;
     @FXML private TableColumn<Map<String, String>, String> colComments;
+    @FXML private TableColumn<Map<String, String>, String> colWhitelist;
+    @FXML private TableColumn<Map<String, String>, String> colBlacklist;
 
     @FXML private Button backBtn;
 
@@ -44,6 +46,10 @@ public class ViewAllStudentsController {
                 d.getValue().getOrDefault("Professional Role", "")));
         colComments.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
                 d.getValue().getOrDefault("Comments", "")));
+        colWhitelist.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
+                d.getValue().getOrDefault("Whitelist", "")));
+        colBlacklist.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
+                d.getValue().getOrDefault("Blacklist", "")));
 
         loadCsv();
     }

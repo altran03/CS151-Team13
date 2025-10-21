@@ -3,7 +3,7 @@
 # Version: 0.6
 
 # who did what:
-1. Alvin Tran (CS) - 
+1. Alvin Tran (CS) - Implement Previous Missing Features,
 2. Xueyan Xian (CS) - 
 3. Moke Wu(SE) - 
 4. Travis Bui(DS) - 

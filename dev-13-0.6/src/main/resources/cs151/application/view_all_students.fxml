@@ -28,7 +28,9 @@
                 <TableColumn fx:id="colLangs"     text="Languages"                prefWidth="140"/>
                 <TableColumn fx:id="colDBs"       text="Databases"                prefWidth="120"/>
                 <TableColumn fx:id="colRole"      text="Role"                     prefWidth="100"/>
-                <TableColumn fx:id="colComments"  text="Comments"                 prefWidth="320"/>
+                <TableColumn fx:id="colComments"  text="Comments"                 prefWidth="250"/>
+                <TableColumn fx:id="colWhitelist" text="Whitelist"                prefWidth="80"/>
+                <TableColumn fx:id="colBlacklist" text="Blacklist"                prefWidth="80"/>
             </columns>
         </TableView>
     </center>

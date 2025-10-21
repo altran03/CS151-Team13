@@ -51,6 +51,12 @@ public class DefineStudentProfilesController {
     private TextArea commentsField;
     
     @FXML
+    private CheckBox whitelistCheckbox;
+    
+    @FXML
+    private CheckBox blacklistCheckbox;
+    
+    @FXML
     private Button saveProfileBtn;
     
     @FXML
@@ -73,6 +79,7 @@ public class DefineStudentProfilesController {
         setupJobStatusToggleGroup();
         loadProgrammingLanguages();
         setupDatabasesList();
+        setupFutureServicesFlags();
         setupValidation();
     }
     @FXML
@@ -185,6 +192,22 @@ public class DefineStudentProfilesController {
         }
     }
     
+    // Setup mutual exclusivity for whitelist and blacklist checkboxes
+    private void setupFutureServicesFlags() {
+        // Ensure mutual exclusivity between whitelist and blacklist
+        whitelistCheckbox.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal && blacklistCheckbox.isSelected()) {
+                blacklistCheckbox.setSelected(false);
+            }
+        });
+        
+        blacklistCheckbox.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal && whitelistCheckbox.isSelected()) {
+                whitelistCheckbox.setSelected(false);
+            }
+        });
+    }
+    
     private void setupValidation() {
         // Real-time validation could be added here if needed
     }
@@ -242,6 +265,12 @@ public class DefineStudentProfilesController {
             errors.append("Please select a preferred professional role\n");
         }
         
+        // Check for duplicate student based on trimmed full name
+        String trimmedName = fullNameField.getText().trim();
+        if (!trimmedName.isEmpty() && isDuplicateStudent(trimmedName)) {
+            errors.append("A student with this name already exists\n");
+        }
+        
         if (errors.length() > 0) {
             statusLabel.setText(errors.toString());
             statusLabel.setTextFill(Color.RED);
@@ -249,6 +278,44 @@ public class DefineStudentProfilesController {
         }
         
         return true;
+    }
+    
+    /**
+     * Check if a student with the given trimmed name already exists
+     * @param trimmedName the trimmed full name to check
+     * @return true if duplicate exists, false otherwise
+     */
+    private boolean isDuplicateStudent(String trimmedName) {
+        try {
+            File file = new File(STUDENT_PROFILES_CSV);
+            if (!file.exists()) {
+                return false; // No file means no duplicates
+            }
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                boolean firstLine = true;
+                while ((line = reader.readLine()) != null) {
+                    if (firstLine) {
+                        firstLine = false; // Skip header
+                        continue;
+                    }
+                    if (!line.trim().isEmpty()) {
+                        String[] parts = line.split(",", -1);
+                        if (parts.length > 0) {
+                            String existingName = parts[0].trim();
+                            if (existingName.equalsIgnoreCase(trimmedName)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (IOException e) {
+            // If there's an error reading the file, allow the save to proceed
+            // The error will be caught later in the save process
+        }
+        return false;
     }
     
     private void saveStudentProfile() throws IOException {
@@ -259,7 +326,7 @@ public class DefineStudentProfilesController {
         try (FileWriter writer = new FileWriter(file, true)) {
             // Write header if file is new
             if (!fileExists) {
-                writer.append("Full Name,Academic Status,Job Status,Job Details,Programming Languages,Databases,Professional Role,Comments\n");
+                writer.append("Full Name,Academic Status,Job Status,Job Details,Programming Languages,Databases,Professional Role,Comments,Whitelist,Blacklist\n");
             }
             
             // Prepare data
@@ -273,6 +340,8 @@ public class DefineStudentProfilesController {
             String databases = String.join(";", selectedDatabases);
             String professionalRole = professionalRoleCombo.getValue();
             String comments = commentsField.getText().trim().replace(",", ";").replace("\n", " ");
+            String whitelist = whitelistCheckbox.isSelected() ? "Yes" : "No";
+            String blacklist = blacklistCheckbox.isSelected() ? "Yes" : "No";
             
             // Write student profile data
             writer.append(fullName).append(",")
@@ -282,7 +351,9 @@ public class DefineStudentProfilesController {
                   .append(programmingLanguages).append(",")
                   .append(databases).append(",")
                   .append(professionalRole).append(",")
-                  .append(comments).append("\n");
+                  .append(comments).append(",")
+                  .append(whitelist).append(",")
+                  .append(blacklist).append("\n");
         }
     }
 
@@ -296,6 +367,8 @@ public class DefineStudentProfilesController {
         clearDatabasesSelection();
         professionalRoleCombo.setValue(null);
         commentsField.clear();
+        whitelistCheckbox.setSelected(false);
+        blacklistCheckbox.setSelected(false);
     }
     
     @FXML
