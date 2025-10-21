@@ -74,7 +74,21 @@ public class MainController {
 
     @FXML
     protected void onManageStudentClick() {
-        // Button does nothing for now
+        try {
+            // Load the View All Students page
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view_all_students.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+
+            // Get the current stage
+            Stage currentStage = (Stage) manageStudentBtn.getScene().getWindow();
+
+            // Set the new scene
+            currentStage.setScene(scene);
+            currentStage.setTitle("Student Tracker - Search Students");
+
+        } catch (IOException e) {
+            System.out.println("Error loading Search & Manage Students page");
+        }
     }
 
     @FXML
