@@ -4,7 +4,7 @@
 
 # who did what:
 1. Alvin Tran (CS) - Implement Previous Missing Features, Search Feature
-2. Xueyan Xian (CS) - 
+2. Xueyan Xian (CS) - Implement Edit and Delete a Student's Profile
 3. Moke Wu(SE) - 
 4. Travis Bui(DS) - 
 
@@ -36,6 +36,7 @@
 2. Xueyan Xian (CS) - Define Programming Languages
 3. Moke Wu(SE) - Zip files, Clean files
 4. Travis Bui(DS) - Check the application, try to set up the database(failed)
+
 
 
 
