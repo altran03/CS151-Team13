@@ -54,6 +54,8 @@
                 <TableColumn fx:id="colComments"  text="Comments"                 prefWidth="250"/>
                 <TableColumn fx:id="colWhitelist" text="Whitelist"                prefWidth="80"/>
                 <TableColumn fx:id="colBlacklist" text="Blacklist"                prefWidth="80"/>
+                <TableColumn fx:id="colEdit"      text="Edit"                     prefWidth="60"/>
+                <TableColumn fx:id="colDelete"    text="Delete"                   prefWidth="60"/>
             </columns>
         </TableView>
     </center>

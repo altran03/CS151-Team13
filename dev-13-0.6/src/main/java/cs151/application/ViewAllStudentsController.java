@@ -1,5 +1,6 @@
 package cs151.application;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,8 +10,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
+import java.util.Optional;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +33,8 @@ public class ViewAllStudentsController {
     @FXML private TableColumn<Map<String, String>, String> colComments;
     @FXML private TableColumn<Map<String, String>, String> colWhitelist;
     @FXML private TableColumn<Map<String, String>, String> colBlacklist;
+    @FXML private TableColumn<Map<String, String>, String> colEdit;
+    @FXML private TableColumn<Map<String, String>, String> colDelete;
 
     @FXML private Button backBtn;
     @FXML private TextField searchField;
@@ -44,6 +53,7 @@ public class ViewAllStudentsController {
     public void initialize() {
         setupTableColumns();
         setupSearchComboBox();
+        setupActionColumns();
         loadProgrammingLanguages();
         loadCsv();
     }
@@ -78,10 +88,68 @@ public class ViewAllStudentsController {
         searchTypeCombo.setValue("All Fields");
     }
 
+    private void setupActionColumns() {
+        // Edit student file with btn
+        colEdit.setCellFactory(column -> new TableCell<Map<String, String>, String>() {
+            private final Button editBtn = new Button("Edit");
+            {
+                editBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 10px;");
+                editBtn.setOnAction(event -> {
+                    Map<String, String> student = getTableView().getItems().get(getIndex());
+                    onEditStudent(student);
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                }
+                else {
+                    setGraphic(editBtn);
+                }
+            }
+        });
+
+        // Delete student file with btn
+        colDelete.setCellFactory(column -> new TableCell<Map<String, String>, String>() {
+            private final Button deleteBtn = new Button("Delete");
+            {
+                deleteBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
+                deleteBtn.setOnAction(event -> {
+                    Map<String, String> student = getTableView().getItems().get(getIndex());
+                    onDeleteStudent(student);
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                }
+                else {
+                    setGraphic(deleteBtn);
+                }
+            }
+        });
+
+        // Call the edit and delete in initialize()
+        colEdit.setCellValueFactory(d -> new SimpleStringProperty(""));
+        colDelete.setCellValueFactory(d -> new SimpleStringProperty(""));
+
+    }
+
     private void loadProgrammingLanguages() {
         try (BufferedReader br = new BufferedReader(new FileReader(PROGRAMMING_LANGUAGES_CSV))) {
             String line;
+            boolean firstLine = true;
             while ((line = br.readLine()) != null) {
+                if (firstLine) {
+                    firstLine = false;
+                    continue;
+                }
                 if (!line.trim().isEmpty()) {
                     availableLanguages.add(line.trim());
                 }
@@ -187,6 +255,70 @@ public class ViewAllStudentsController {
                     .anyMatch(value -> value.toLowerCase().contains(term));
         }
     }
+
+    private void onEditStudent(Map<String, String> student) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("define_student_profiles.fxml"));
+            Scene scene = new Scene(loader.load(), 700, 800);
+
+            DefineStudentProfilesController controller = loader.getController();
+            controller.loadStudentDataForEditing(student); //go to DSPController later
+
+            Stage currentStage = (Stage) table.getScene().getWindow();
+            currentStage.setScene(scene);
+            currentStage.setTitle("Edit Student Profile - " + student.get("Full Name"));
+
+        } catch (IOException e) {
+            statusLabel.setText("Error loading edit student form: " + e.getMessage());
+            statusLabel.setTextFill(Color.RED);
+        }
+    }
+
+    private void onDeleteStudent(Map<String, String> student) {
+        String studentName = student.get("Full Name");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Student");
+        alert.setHeaderText("Delete Student Profile");
+        alert.setContentText("Are you sure you want to delete " + studentName + "?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            deleteStudentFromCSV(student);
+            loadCsv();
+            statusLabel.setText("Student: " + studentName + " has been deleted");
+            statusLabel.setTextFill(Color.GREEN);
+        }
+    }
+
+    private void deleteStudentFromCSV(Map<String, String> studentToDelete) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(FILE));
+            List<String> updateLines = new ArrayList<>();
+
+            if (!lines.isEmpty()) {
+                updateLines.add(lines.get(0));
+
+                for (int i = 1; i < lines.size(); i++) {
+                    String line = lines.get(i);
+                    String[] parts = line.split(",", -1);
+                    if (parts.length > 0) {
+                        String currentName = parts[0].trim();
+                        String targetName = studentToDelete.get("Full Name").trim();
+                        if (!currentName.equals(targetName)) {
+                            updateLines.add(line);
+                        }
+                    }
+                }
+            }
+            // write back to file
+            Files.write(Paths.get(FILE), updateLines);
+        } catch (IOException e) {
+            statusLabel.setText("Error deleting student: " + e.getMessage());
+            statusLabel.setTextFill(Color.RED);
+        }
+    }
+
 
     @FXML
     protected void onBackClick() {
