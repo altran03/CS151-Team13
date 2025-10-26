@@ -6,7 +6,7 @@
 1. Alvin Tran (CS) - Implement Previous Missing Features, Search Feature
 2. Xueyan Xian (CS) - Implement Edit and Delete a Student's Profile
 3. Moke Wu(SE) - Test the Code
-4. Travis Bui(DS) - 
+4. Travis Bui(DS) - Java Comments and Clean/Submit
 
 # Any other instruction that users need to know:
 
