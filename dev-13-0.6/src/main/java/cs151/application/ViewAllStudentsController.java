@@ -58,6 +58,7 @@ public class ViewAllStudentsController {
         loadCsv();
     }
 
+    // Initialize and display default or get values for tableview
     private void setupTableColumns() {
         colFullName.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
                 d.getValue().getOrDefault("Full Name", "")));
@@ -79,6 +80,7 @@ public class ViewAllStudentsController {
                 d.getValue().getOrDefault("Blacklist", "")));
     }
 
+    // Initialize list for search parameters and default search values
     private void setupSearchComboBox() {
         List<String> searchTypes = Arrays.asList(
             "All Fields", "Full Name", "Academic Status", "Programming Language", 
@@ -88,6 +90,7 @@ public class ViewAllStudentsController {
         searchTypeCombo.setValue("All Fields");
     }
 
+    // Open Scene that gets the columns' field and updates it
     private void setupActionColumns() {
         // Edit student file with btn
         colEdit.setCellFactory(column -> new TableCell<Map<String, String>, String>() {
@@ -207,6 +210,7 @@ public class ViewAllStudentsController {
         table.setItems(items);
     }
 
+    //Receives user input for search field and updates table with matching search field
     @FXML
     protected void onSearchClick() {
         String searchTerm = searchField.getText().trim();
@@ -235,6 +239,13 @@ public class ViewAllStudentsController {
         statusLabel.setTextFill(Color.BLUE);
     }
 
+    /**
+     * Takes in users text field and selected field, and compare with table values
+     * @param student profile data contained in the map
+     * @param searchTerm the inputted field for finding a value
+     * @param searchType the classification used for finding a value
+     * @return boolean {@code true} if value is found, else {@code false}
+     * */
     private boolean matchesSearch(Map<String, String> student, String searchTerm, String searchType) {
         String term = searchTerm.toLowerCase();
         
@@ -256,6 +267,10 @@ public class ViewAllStudentsController {
         }
     }
 
+    /**
+     * Loads edit scene and allows for student to be updated
+     * @param student corresponding with the column
+     */
     private void onEditStudent(Map<String, String> student) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("define_student_profiles.fxml"));
@@ -274,6 +289,10 @@ public class ViewAllStudentsController {
         }
     }
 
+    /**
+     * Deletes student from student profile and tableview
+     * @param student profile from corresponding column
+     */
     private void onDeleteStudent(Map<String, String> student) {
         String studentName = student.get("Full Name");
 
@@ -291,6 +310,10 @@ public class ViewAllStudentsController {
         }
     }
 
+    /**
+     * Deletes student data from CSV file
+     * @param studentToDelete a map containing to be deleted student data
+     */
     private void deleteStudentFromCSV(Map<String, String> studentToDelete) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(FILE));
