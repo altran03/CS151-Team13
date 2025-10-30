@@ -3,7 +3,7 @@
 # Version: 0.7
 
 # who did what:
-1. Alvin Tran (CS) - 
+1. Alvin Tran (CS) - Update edit form to show stored data, Test
 2. Xueyan Xian (CS) - 
 3. Moke Wu(SE) - 
 4. Travis Bui(DS) - 
