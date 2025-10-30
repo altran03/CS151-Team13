@@ -69,6 +69,9 @@ public class DefineStudentProfilesController {
 
     private static final String STUDENT_PROFILES_CSV = "student_profiles.csv";
     private static final String PROGRAMMING_LANGUAGES_CSV = "programming_languages.csv";
+    
+    // Flag to prevent listeners from interfering during data load
+    private boolean isLoadingData = false;
 
     @FXML
     public void initialize() {
@@ -132,8 +135,27 @@ public class DefineStudentProfilesController {
         // Enable/disable job details based on selection
         employedRadio.selectedProperty().addListener((obs, oldVal, newVal) -> {
             jobDetailsField.setDisable(!newVal);
-            if (!newVal) {
+            // Don't clear fields during data loading
+            if (isLoadingData) {
+                return;
+            }
+            // Only clear when switching FROM employed TO not employed
+            if (!newVal && Boolean.TRUE.equals(oldVal)) {
                 jobDetailsField.clear();
+            }
+        });
+        
+        notEmployedRadio.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal) {
+                jobDetailsField.setDisable(true);
+                // Don't clear fields during data loading
+                if (isLoadingData) {
+                    return;
+                }
+                // Only clear when switching TO not employed FROM employed
+                if (Boolean.TRUE.equals(oldVal)) {
+                    jobDetailsField.clear();
+                }
             }
         });
     }
@@ -431,22 +453,41 @@ public class DefineStudentProfilesController {
 
     // prefill the form with existing student data for editing
     public void loadStudentDataForEditing(Map<String, String> student) {
+        isLoadingData = true; // Prevent listeners from interfering
+        
         fullNameField.setText(student.getOrDefault("Full Name", "").replace(";", ","));
         academicStatusCombo.setValue(student.getOrDefault("Academic Status", ""));
 
         // job status
         String jobStatus = student.getOrDefault("Job Status", "");
-        if (jobStatus.toLowerCase().contains("employed")) {
+        String jobDetails = student.getOrDefault("Job Details", "");
+        
+        // Extract job details
+        if (jobStatus.contains("(") && jobStatus.contains(")")) {
+            int startIdx = jobStatus.indexOf("(") + 1;
+            int endIdx = jobStatus.indexOf(")");
+            if (startIdx < endIdx && jobDetails.isEmpty()) {
+                jobDetails = jobStatus.substring(startIdx, endIdx);
+            }
+            // Extract base job status
+            jobStatus = jobStatus.substring(0, jobStatus.indexOf("(")).trim();
+        }
+        
+        // Set radio button 
+        String jobStatusLower = jobStatus.toLowerCase();
+        if (jobStatusLower.startsWith("employed")) {
             employedRadio.setSelected(true);
-            // get rid of the parentheses if any
-            if (jobStatus.contains("(") && jobStatus.contains(")")) {
-                String jobDetails = jobStatus.substring(jobStatus.indexOf("(") + 1, jobStatus.indexOf(")"));
+            jobDetailsField.setDisable(false);
+            if (!jobDetails.isEmpty()) {
                 jobDetailsField.setText(jobDetails.replace(";", ","));
             } else {
                 jobDetailsField.setText("");
             }
         } else {
+            // For "Not Employed", set radio button and clear/disable job details
             notEmployedRadio.setSelected(true);
+            jobDetailsField.setDisable(true);
+            jobDetailsField.setText("");
         }
 
         // programming languages
@@ -504,6 +545,8 @@ public class DefineStudentProfilesController {
         saveProfileBtn.setText("Update Profile");
         statusLabel.setText("Editing student: " + student.get("Full Name"));
         statusLabel.setTextFill(Color.BLUE);
+        
+        isLoadingData = false; // Re-enable listeners after data is loaded
     }
 
 
