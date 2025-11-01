@@ -6,7 +6,7 @@
 1. Alvin Tran (CS) - Update edit form to show stored data, Test
 2. Xueyan Xian (CS) - Implement Edit
 3. Moke Wu(SE) - 
-4. Travis Bui(DS) - 
+4. Travis Bui(DS) - QA/Java Comments for Edit
 
 # Any other instruction that users need to know:
 
