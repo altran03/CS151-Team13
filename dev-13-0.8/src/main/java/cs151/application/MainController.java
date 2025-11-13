@@ -77,7 +77,7 @@ public class MainController {
         try {
             // Load the View All Students page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view_all_students.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 600);
+            Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
 
             // Get the current stage
             Stage currentStage = (Stage) manageStudentBtn.getScene().getWindow();

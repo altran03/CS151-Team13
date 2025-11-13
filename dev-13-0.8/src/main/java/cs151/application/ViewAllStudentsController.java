@@ -72,8 +72,6 @@ public class ViewAllStudentsController {
                 d.getValue().getOrDefault("Databases", "")));
         colRole.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
                 d.getValue().getOrDefault("Professional Role", "")));
-        colComments.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
-                d.getValue().getOrDefault("Comments", "")));
         colWhitelist.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
                 d.getValue().getOrDefault("Whitelist", "")));
         colBlacklist.setCellValueFactory(d -> new javafx.beans.property.SimpleStringProperty(
@@ -92,6 +90,29 @@ public class ViewAllStudentsController {
 
     // Open Scene that gets the columns' field and updates it
     private void setupActionColumns() {
+        // Comments button for viewing/adding comments
+        colComments.setCellFactory(column -> new TableCell<Map<String, String>, String>() {
+            private final Button commentsBtn = new Button("Comments");
+            {
+                commentsBtn.setStyle("-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-size: 10px;");
+                commentsBtn.setOnAction(event -> {
+                    Map<String, String> student = getTableView().getItems().get(getIndex());
+                    onViewComments(student);
+                });
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                }
+                else {
+                    setGraphic(commentsBtn);
+                }
+            }
+        });
+
         // Edit student file with btn
         colEdit.setCellFactory(column -> new TableCell<Map<String, String>, String>() {
             private final Button editBtn = new Button("Edit");
@@ -138,7 +159,8 @@ public class ViewAllStudentsController {
             }
         });
 
-        // Call the edit and delete in initialize()
+        // Call the edit, delete, and comments in initialize()
+        colComments.setCellValueFactory(d -> new SimpleStringProperty(""));
         colEdit.setCellValueFactory(d -> new SimpleStringProperty(""));
         colDelete.setCellValueFactory(d -> new SimpleStringProperty(""));
 
@@ -264,6 +286,28 @@ public class ViewAllStudentsController {
             default:
                 return student.values().stream()
                     .anyMatch(value -> value.toLowerCase().contains(term));
+        }
+    }
+
+    /**
+     * Opens the comments page for viewing and adding comments
+     * @param student corresponding with the column
+     */
+    private void onViewComments(Map<String, String> student) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("student_comments.fxml"));
+            Scene scene = new Scene(loader.load(), 900, 650);
+
+            StudentCommentsController controller = loader.getController();
+            controller.setStudentData(student);
+
+            Stage currentStage = (Stage) table.getScene().getWindow();
+            currentStage.setScene(scene);
+            currentStage.setTitle("Student Comments - " + student.get("Full Name"));
+
+        } catch (IOException e) {
+            statusLabel.setText("Error loading comments page: " + e.getMessage());
+            statusLabel.setTextFill(Color.RED);
         }
     }
 

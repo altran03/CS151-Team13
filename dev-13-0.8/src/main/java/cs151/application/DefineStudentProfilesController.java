@@ -95,7 +95,7 @@ public class DefineStudentProfilesController {
             }
 
             FXMLLoader loader = new FXMLLoader(url);
-            Scene scene = new Scene(loader.load(), 900, 600);
+            Scene scene = new Scene(loader.load(), 1200, 600);
             Stage stage = (Stage) backToHomeBtn.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("All Student Profiles");
