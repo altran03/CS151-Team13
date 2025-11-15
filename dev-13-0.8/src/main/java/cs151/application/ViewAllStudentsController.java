@@ -48,6 +48,7 @@ public class ViewAllStudentsController {
     private List<Map<String, String>> allStudents = new ArrayList<>();
     private List<Map<String, String>> filteredStudents = new ArrayList<>();
     private List<String> availableLanguages = new ArrayList<>();
+    private final MainController mainController = new MainController();
 
     @FXML
     public void initialize() {
@@ -318,7 +319,7 @@ public class ViewAllStudentsController {
     private void onEditStudent(Map<String, String> student) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("define_student_profiles.fxml"));
-            Scene scene = new Scene(loader.load(), 700, 800);
+            Scene scene = new Scene(loader.load(), mainController.gdWidth*0.65, mainController.gdHeight);
 
             DefineStudentProfilesController controller = loader.getController();
             controller.loadStudentDataForEditing(student); //go to DSPController later
@@ -391,7 +392,7 @@ public class ViewAllStudentsController {
     protected void onBackClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            Scene scene = new Scene(fxmlLoader.load(), mainController.gdWidth, mainController.gdHeight);
 
             Stage currentStage = (Stage) backBtn.getScene().getWindow();
             currentStage.setScene(scene);

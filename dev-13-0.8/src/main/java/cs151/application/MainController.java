@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.IOException;
 
 public class MainController {
@@ -34,12 +36,16 @@ public class MainController {
     @FXML
     private Button exitBtn;
 
+    GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+    final int gdWidth = gd.getDisplayMode().getWidth() / 2;
+    final int gdHeight = gd.getDisplayMode().getHeight()/ 2;
+
     @FXML
     protected void onManageLanguagesClick() {
         try {
             // Load the Define Programming Languages page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("define_languages.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 600);
+            Scene scene = new Scene(fxmlLoader.load(), gdWidth, gdHeight);
 
             // Get the current stage
             Stage currentStage = (Stage) manageLanguagesBtn.getScene().getWindow();
@@ -58,7 +64,7 @@ public class MainController {
         try {
             // Load the Define Student Profiles page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("define_student_profiles.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 700, 800);
+            Scene scene = new Scene(fxmlLoader.load(), (gdWidth*0.65), gdHeight);
 
             // Get the current stage
             Stage currentStage = (Stage) defineStudentProfilesBtn.getScene().getWindow();
@@ -77,7 +83,7 @@ public class MainController {
         try {
             // Load the View All Students page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view_all_students.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+            Scene scene = new Scene(fxmlLoader.load(), gdWidth, gdHeight);
 
             // Get the current stage
             Stage currentStage = (Stage) manageStudentBtn.getScene().getWindow();

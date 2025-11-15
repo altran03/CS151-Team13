@@ -33,6 +33,7 @@ public class StudentCommentsController {
     private static final String STUDENT_PROFILES_CSV = "student_profiles.csv";
     private Map<String, String> studentData;
     private List<Comment> comments = new ArrayList<>();
+    private final MainController mainController = new MainController();
 
     /**
      * Represents a single comment with date and text
@@ -254,7 +255,7 @@ public class StudentCommentsController {
     protected void onBackClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view_all_students.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
+            Scene scene = new Scene(fxmlLoader.load(), mainController.gdWidth, mainController.gdHeight);
 
             Stage currentStage = (Stage) backBtn.getScene().getWindow();
             currentStage.setScene(scene);
