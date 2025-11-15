@@ -4,7 +4,7 @@
 
 # who did what:
 1. Alvin Tran (CS) - Comments Page
-2. Xueyan Xian (CS) - 
+2. Xueyan Xian (CS) - Update ReadMe (non-coding part), Check and Test the Comment Implementation
 3. Moke Wu(SE) - 
 4. Travis Bui(DS) - 
 
@@ -68,6 +68,7 @@
 2. Xueyan Xian (CS) - Mockup 2, Check and modify the entire project (quality, font, spelling, grammar, format...), Submission.
 3. Travis Bui (SE) - Alternative Flow of Events
 4. Moke Wu (DS) - Student Profile Page, User Case Check
+
 
 
 
