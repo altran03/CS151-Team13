@@ -6,7 +6,7 @@
 1. Alvin Tran (CS) - Comments Page
 2. Xueyan Xian (CS) - Update ReadMe (non-coding part), Check and Test the Comment Implementation
 3. Moke Wu(SE) - 
-4. Travis Bui(DS) - 
+4. Travis Bui(DS) - UI tweak, QA`
 
 # Any other instruction that users need to know:
 
