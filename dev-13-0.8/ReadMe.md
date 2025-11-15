@@ -53,17 +53,21 @@
 3. Moke Wu(SE) - Zip files, Clean files
 4. Travis Bui(DS) - Check the application, try to set up the database(failed)
 
+# Version: Technical-Spec - v1
 
+# who did what:
+1. Alvin Tran: (CS) - Objective, Data Model, UML Class Diagram
+2. Xueyan Xian (CS) - UML Sequence Diagram, Acronyms and Abbreviations, Formatting
+3. Moke Wu (SE) - UML Class Diagram Checking
+4. Travis Bui (DS) - UML Sequence Diagram Checking, Submission
 
+# Version: Functional-Spec - v1
 
-
-
-
-
-
-
-
-
+# who did what:
+1. Alvin Tran (CS) - Software Overview, Use Case Primary Flow, Mockup 1
+2. Xueyan Xian (CS) - Mockup 2, Check and modify the entire project (quality, font, spelling, grammar, format...), Submission.
+3. Travis Bui (SE) - Alternative Flow of Events
+4. Moke Wu (DS) - Student Profile Page, User Case Check
 
 
 
