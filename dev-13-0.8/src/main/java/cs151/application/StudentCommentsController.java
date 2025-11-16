@@ -3,6 +3,7 @@ package cs151.application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -33,7 +34,14 @@ public class StudentCommentsController {
     private static final String STUDENT_PROFILES_CSV = "student_profiles.csv";
     private Map<String, String> studentData;
     private List<Comment> comments = new ArrayList<>();
-    private final MainController mainController = new MainController();
+
+    private int screenWidth;
+    private int screenHeight;
+
+    public void setScreenSize(int gdWidth, int gdHeight) {
+        screenWidth = gdWidth;
+        screenHeight = gdHeight;
+    }
 
     /**
      * Represents a single comment with date and text
@@ -255,7 +263,8 @@ public class StudentCommentsController {
     protected void onBackClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("view_all_students.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), mainController.gdWidth, mainController.gdHeight);
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root , screenWidth, screenHeight);
 
             Stage currentStage = (Stage) backBtn.getScene().getWindow();
             currentStage.setScene(scene);

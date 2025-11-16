@@ -2,6 +2,7 @@ package cs151.application;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -211,10 +212,15 @@ public class DefineLanguagesController {
         try {
             // Load the home page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 600);
+            Parent root = (Parent) fxmlLoader.load();
+            MainController mainController = (MainController) fxmlLoader.getController();
 
             // Get the current stage
             Stage currentStage = (Stage) backButton.getScene().getWindow();
+            double width = currentStage.getWidth();
+            double height = currentStage.getHeight();
+            mainController.setScreenSize((int)width, (int)height);
+            Scene scene = new Scene(root , width , height);
 
             // Set the new scene
             currentStage.setScene(scene);
