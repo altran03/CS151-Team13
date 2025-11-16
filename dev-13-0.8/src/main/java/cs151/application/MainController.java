@@ -45,7 +45,7 @@ public class MainController {
         try {
             // Load the Define Programming Languages page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("define_languages.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), gdWidth, gdHeight);
+            Scene scene = new Scene(fxmlLoader.load(), gdWidth/2, gdHeight);
 
             // Get the current stage
             Stage currentStage = (Stage) manageLanguagesBtn.getScene().getWindow();

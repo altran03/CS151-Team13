@@ -297,7 +297,7 @@ public class ViewAllStudentsController {
     private void onViewComments(Map<String, String> student) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("student_comments.fxml"));
-            Scene scene = new Scene(loader.load(), 900, 650);
+            Scene scene = new Scene(loader.load(), 700, 650);
 
             StudentCommentsController controller = loader.getController();
             controller.setStudentData(student);
