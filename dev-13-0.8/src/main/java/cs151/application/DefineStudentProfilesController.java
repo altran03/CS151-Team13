@@ -3,6 +3,7 @@ package cs151.application;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -66,12 +67,19 @@ public class DefineStudentProfilesController {
     @FXML
     private Button viewAllBtn;
 
-
     private static final String STUDENT_PROFILES_CSV = "student_profiles.csv";
     private static final String PROGRAMMING_LANGUAGES_CSV = "programming_languages.csv";
     
     // Flag to prevent listeners from interfering during data load
     private boolean isLoadingData = false;
+
+    private int screenWidth;
+    private int screenHeight;
+
+    public void setScreenSize(int gdWidth, int gdHeight) {
+        screenWidth = gdWidth;
+        screenHeight = gdHeight;
+    }
 
     @FXML
     public void initialize() {
@@ -95,7 +103,10 @@ public class DefineStudentProfilesController {
             }
 
             FXMLLoader loader = new FXMLLoader(url);
-            Scene scene = new Scene(loader.load(), 1200, 600);
+            Parent root = (Parent) loader.load();
+            Scene scene = new Scene(root, screenWidth, screenHeight);
+            DefineStudentProfilesController controller = (DefineStudentProfilesController) loader.getController();
+            setScreenSize(screenWidth, screenHeight);
             Stage stage = (Stage) backToHomeBtn.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("All Student Profiles");
@@ -556,7 +567,11 @@ public class DefineStudentProfilesController {
         try {
             // Load the Home page
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+            Parent root = fxmlLoader.load();
+            MainController mainController = fxmlLoader.getController();
+            mainController.setScreenSize(screenWidth, screenHeight);
+            Scene scene = new Scene(root, screenWidth, screenHeight);
+
 
             // Get the current stage
             Stage currentStage = (Stage) backToHomeBtn.getScene().getWindow();

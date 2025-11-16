@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -48,7 +49,13 @@ public class ViewAllStudentsController {
     private List<Map<String, String>> allStudents = new ArrayList<>();
     private List<Map<String, String>> filteredStudents = new ArrayList<>();
     private List<String> availableLanguages = new ArrayList<>();
-    private final MainController mainController = new MainController();
+    private int screenWidth;
+    private int screenHeight;
+
+    public void setScreenSize(int gdWidth, int gdHeight) {
+        screenWidth = gdWidth;
+        screenHeight = gdHeight;
+    }
 
     @FXML
     public void initialize() {
@@ -319,7 +326,8 @@ public class ViewAllStudentsController {
     private void onEditStudent(Map<String, String> student) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("define_student_profiles.fxml"));
-            Scene scene = new Scene(loader.load(), mainController.gdWidth*0.65, mainController.gdHeight);
+            Parent root = (Parent) loader.load();
+            Scene scene = new Scene(root, screenWidth*0.65, screenHeight);
 
             DefineStudentProfilesController controller = loader.getController();
             controller.loadStudentDataForEditing(student); //go to DSPController later
@@ -392,7 +400,8 @@ public class ViewAllStudentsController {
     protected void onBackClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), mainController.gdWidth, mainController.gdHeight);
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root , screenWidth / 2, screenHeight);
 
             Stage currentStage = (Stage) backBtn.getScene().getWindow();
             currentStage.setScene(scene);
