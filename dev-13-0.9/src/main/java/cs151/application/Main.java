@@ -14,7 +14,9 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 500, 600);
         stage.setTitle("Student Knowledgebase - Faculty Management System");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
+        stage.setMinWidth(500);
+        stage.setMinHeight(600);
         stage.show();
     }
 

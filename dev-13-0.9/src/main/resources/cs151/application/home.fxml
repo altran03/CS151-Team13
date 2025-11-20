@@ -51,7 +51,7 @@
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onManageStudentClick"/>
 
-        <Button fx:id="generateReportsBtn" text="Generate Student Reports (coming soon)" 
+        <Button fx:id="generateReportsBtn" text="Generate Student Reports" 
                 prefWidth="250.0" prefHeight="40.0"
                 onAction="#onGenerateReportsClick"/>
         

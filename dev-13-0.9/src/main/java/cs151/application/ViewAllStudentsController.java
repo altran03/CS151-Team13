@@ -392,7 +392,7 @@ public class ViewAllStudentsController {
     protected void onBackClick() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("home.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), mainController.gdWidth, mainController.gdHeight);
+            Scene scene = new Scene(fxmlLoader.load(), 500, 600);
 
             Stage currentStage = (Stage) backBtn.getScene().getWindow();
             currentStage.setScene(scene);

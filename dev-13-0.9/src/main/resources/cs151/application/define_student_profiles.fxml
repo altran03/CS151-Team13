@@ -5,7 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane xmlns:fx="http://javafx.com/fxml" fx:controller="cs151.application.DefineStudentProfilesController">
+<ScrollPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="cs151.application.DefineStudentProfilesController"
+            fitToWidth="true">
     <content>
         <VBox spacing="20.0" style="-fx-background-color: #f5f5f5;">
             <padding>

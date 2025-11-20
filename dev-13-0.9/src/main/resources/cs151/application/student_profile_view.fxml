@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="cs151.application.StudentProfileViewController"
+            fitToWidth="true">
+    <content>
+        <VBox spacing="20.0" style="-fx-background-color: #f5f5f5;">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <!-- Header -->
+            <VBox alignment="CENTER" spacing="10.0">
+                <Label text="Student Profile" 
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Label text="View student information and comments" 
+                       style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+            </VBox>
+
+            <!-- Student Profile Information (Form Format) -->
+            <VBox spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 8;">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
+
+                <Label text="Student Information" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                <GridPane hgap="15.0" vgap="12.0">
+                    <!-- Full Name -->
+                    <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="fullNameLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <!-- Academic Status -->
+                    <Label text="Academic Status:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="academicStatusLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <!-- Job Status -->
+                    <Label text="Job Status:" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="jobStatusLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <!-- Programming Languages -->
+                    <Label text="Programming Languages:" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="languagesLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                           wrapText="true" maxWidth="400"/>
+
+                    <!-- Databases -->
+                    <Label text="Databases:" GridPane.columnIndex="0" GridPane.rowIndex="4"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="databasesLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+                    <!-- Professional Role -->
+                    <Label text="Professional Role:" GridPane.columnIndex="0" GridPane.rowIndex="5"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="roleLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+                    <!-- Whitelist -->
+                    <Label text="Whitelist:" GridPane.columnIndex="0" GridPane.rowIndex="6"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="whitelistLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+                    <!-- Blacklist -->
+                    <Label text="Blacklist:" GridPane.columnIndex="0" GridPane.rowIndex="7"
+                           style="-fx-font-weight: bold;"/>
+                    <Label fx:id="blacklistLabel" text="" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+                </GridPane>
+            </VBox>
+
+            <!-- Comments Table (Tabular Format) -->
+            <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 8;">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                </padding>
+
+                <Label text="Comments History" 
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+                <Label text="Click on a row to view the full comment" 
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d;"/>
+
+                <TableView fx:id="commentsTable" prefHeight="250.0">
+                    <columns>
+                        <TableColumn fx:id="colDate" text="Date" minWidth="100" prefWidth="120"/>
+                        <TableColumn fx:id="colComment" text="Comment" minWidth="200"/>
+                    </columns>
+                </TableView>
+
+                <Label fx:id="statusLabel" text="" />
+            </VBox>
+
+            <!-- Back Button -->
+            <HBox alignment="CENTER">
+                <Button fx:id="backBtn" 
+                       text="Back to Reports" 
+                       onAction="#onBackClick"
+                       prefWidth="150.0" prefHeight="35.0"
+                       style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>
+
