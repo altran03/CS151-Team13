@@ -82,6 +82,7 @@ public class StudentProfileViewController {
         String commentsStr = studentData.getOrDefault("Comments", "").trim();
         
         if (commentsStr.isEmpty() || commentsStr.equalsIgnoreCase("N/A")) {
+            commentsTable.setItems(FXCollections.emptyObservableList());
             statusLabel.setText("No comments available for this student");
             statusLabel.setTextFill(Color.BLUE);
             return;
@@ -93,14 +94,13 @@ public class StudentProfileViewController {
             part = part.trim();
             if (part.isEmpty()) continue;
             
-            Map<String, String> commentData = new HashMap<>();
-            
             // Extract date in format [YYYY-MM-DD]
             if (part.startsWith("[") && part.contains("]")) {
                 int endBracket = part.indexOf("]");
                 String date = part.substring(1, endBracket);
                 String text = part.substring(endBracket + 1).trim();
-                
+
+                Map<String, String> commentData = new HashMap<>();
                 commentData.put("date", date);
                 // Show excerpt if comment is too long
                 if (text.length() > 100) {
@@ -113,6 +113,15 @@ public class StudentProfileViewController {
                 
                 commentsList.add(commentData);
             }
+        }
+
+        // Make the entire comment as one entry
+        if (commentsList.isEmpty()) {
+            Map<String, String> commentData = new HashMap<>();
+            commentData.put("date", "");
+            commentData.put("comment", commentsStr);
+            commentData.put("fullComment", commentsStr);
+            commentsList.add(commentData);
         }
 
         // Setup table columns
