@@ -5,7 +5,7 @@
 # who did what:
 1. Alvin Tran (CS) - Reports Page, Generate Report Feature and Page Structure
 2. Xueyan Xian (CS) - Check and Test, Fix the Comment History inside Generate Student Reports, Modify Search Student page size
-3. Moke Wu(SE) - 
+3. Moke Wu(SE) - Submission
 4. Travis Bui(DS) - QA (Found Missing Comment Report)
 
 # Any other instruction that users need to know:
@@ -76,6 +76,7 @@
 2. Xueyan Xian (CS) - Mockup 2, Check and modify the entire project (quality, font, spelling, grammar, format...), Submission.
 3. Travis Bui (SE) - Alternative Flow of Events
 4. Moke Wu (DS) - Student Profile Page, User Case Check
+
 
 
 
