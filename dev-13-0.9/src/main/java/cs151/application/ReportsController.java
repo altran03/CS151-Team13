@@ -32,6 +32,7 @@ public class ReportsController {
     @FXML private TableColumn<Map<String, String>, String> colLangs;
     @FXML private TableColumn<Map<String, String>, String> colDBs;
     @FXML private TableColumn<Map<String, String>, String> colRole;
+    @FXML private TableColumn<Map<String, String>, String> colComments;
     @FXML private Button backBtn;
     @FXML private Label statusLabel;
 
@@ -61,6 +62,9 @@ public class ReportsController {
                 d.getValue().getOrDefault("Databases", "")));
         colRole.setCellValueFactory(d -> new SimpleStringProperty(
                 d.getValue().getOrDefault("Professional Role", "")));
+        colComments.setCellValueFactory(d -> new SimpleStringProperty(
+                d.getValue().getOrDefault("Comments", "")));
+        ;
     }
 
     /**

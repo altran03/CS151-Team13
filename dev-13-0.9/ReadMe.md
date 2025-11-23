@@ -6,11 +6,11 @@
 1. Alvin Tran (CS) - Reports Page
 2. Xueyan Xian (CS) - Check and Test, Modify Search Student page size
 3. Moke Wu(SE) - 
-4. Travis Bui(DS) - 
+4. Travis Bui(DS) - QA (Found Missing Comment Report)
 
 # Any other instruction that users need to know:
 
--------
+------- 
 # Previous Versions
 
 # Version: 0.8
