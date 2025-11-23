@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="cs151.application.DefineLanguagesController"
+      prefHeight="600.0" prefWidth="500.0">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+
+    <!-- Header -->
+    <Label text="Define Programming Languages"
+           textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="System Bold" size="24.0"/>
+        </font>
+    </Label>
+
+    <!-- Instruction -->
+    <Label text="Add programming languages that can be assigned to student profiles"
+           textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="System" size="14.0"/>
+        </font>
+    </Label>
+
+    <!-- Input Section -->
+    <VBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 20;">
+        <Label text="Language Name"
+               style="-fx-font-weight: bold;">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
+
+        <TextField fx:id="languageField"
+                   promptText="e.g., Java, Python, JavaScript..."
+                   prefWidth="400.0" prefHeight="35.0"/>
+
+        <HBox alignment="CENTER_LEFT" spacing="15.0">
+            <Button fx:id="saveButton" text="Save Language"
+                    onAction="#onSaveLanguageClick"
+                    prefWidth="130.0" prefHeight="35.0"
+                    style="-fx-font-weight: bold;"/>
+
+            <Button fx:id="backButton" text="Back to Home"
+                    onAction="#onBackToHomeClick"
+                    prefWidth="130.0" prefHeight="35.0"
+                    style="-fx-font-weight: bold;"/>
+        </HBox>
+
+        <!-- Status Message -->
+        <Label fx:id="statusMessage"
+               style="-fx-text-fill: white; -fx-background-color: #3498db; -fx-padding: 10px; -fx-background-radius: 5px; -fx-alignment: center; -fx-font-weight: bold;"
+               maxWidth="400.0"
+               visible="false">
+            <font>
+                <Font size="12.0"/>
+            </font>
+        </Label>
+    </VBox>
+
+    <!-- Existing Languages Section with TableView -->
+    <VBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-padding: 20;" VBox.vgrow="ALWAYS">
+        <Label text="Existing Languages"
+               style="-fx-font-weight: bold;">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Label>
+
+        <!-- TableView for displaying languages in tabular format -->
+        <TableView fx:id="languagesTableView" prefHeight="800.0" prefWidth="400.0"
+                   VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="languagesColumn" text="Programming Language" prefWidth="395.0"/>
+            </columns>
+        </TableView>
+
+        <Button fx:id="deleteButton" text="Delete Selected Language"
+                onAction="#onDeleteLanguageClick"
+                prefWidth="200.0" prefHeight="35.0"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </VBox>
+</VBox>

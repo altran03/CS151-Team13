@@ -99,22 +99,7 @@ public class MainController {
 
     @FXML
     protected void onGenerateReportsClick() {
-        try {
-            // Load the Reports page
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("reports.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), gdWidth, gdHeight);
-
-            // Get the current stage
-            Stage currentStage = (Stage) generateReportsBtn.getScene().getWindow();
-
-            // Set the new scene
-            currentStage.setScene(scene);
-            currentStage.setTitle("Student Tracker - Reports");
-
-        } catch (IOException e) {
-            System.out.println("Error loading Reports page: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // Button does nothing for now
     }
     
     @FXML
